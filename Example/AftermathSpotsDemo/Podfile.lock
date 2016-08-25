@@ -1,0 +1,16 @@
+PODS:
+  - AftermathSpots (0.1.0)
+
+DEPENDENCIES:
+  - AftermathSpots (from `../../`)
+
+EXTERNAL SOURCES:
+  AftermathSpots:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  AftermathSpots: be38e50e448648d11954271b38fbb20937c90996
+
+PODFILE CHECKSUM: 2eccb8d2f80fa4c5266ab10c5b082b4c682f93c9
+
+COCOAPODS: 1.0.1
