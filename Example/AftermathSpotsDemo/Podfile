@@ -3,6 +3,14 @@ use_frameworks!
 platform :ios, '8.0'
 
 target 'AftermathSpotsDemo' do
- pod 'AftermathSpots', path: '../../'
+  pod 'AftermathSpots', path: '../../'
+  pod 'Cartography'
+  pod 'Hue'
+  pod 'Spots', git: 'https://github.com/hyperoslo/Spots'
+  pod 'Malibu'
+  pod 'Fashion'
+  pod 'Aftermath', git: 'https://github.com/hyperoslo/Aftermath'
+  pod 'AftermathCompass', git: 'https://github.com/hyperoslo/AftermathCompass'
+  pod 'Cache', git: 'https://github.com/hyperoslo/Cache'
+  pod 'Imaginary', git: 'https://github.com/hyperoslo/Imaginary'
 end
-

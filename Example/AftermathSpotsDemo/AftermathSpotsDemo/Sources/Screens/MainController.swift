@@ -1,4 +1,5 @@
 import UIKit
+import AftermathSpots
 
 class MainController: UITabBarController {
 
