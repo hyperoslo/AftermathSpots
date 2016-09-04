@@ -8,6 +8,8 @@ public class AftermathController: SpotsController, CommandProducer {
   let initialCommand: AnyCommand?
   var mixins = [Mixin]()
 
+  public var errorHandler: ((error: ErrorType) -> Void)?
+
   // MARK: - Initialization
 
   public required init(initialCommand: AnyCommand? = nil, mixins: [Mixin] = []) {
@@ -21,14 +23,14 @@ public class AftermathController: SpotsController, CommandProducer {
     }
   }
 
-  public convenience init<R: Command where R.Output == [Component]>(componentCommand: R, mixins: [Mixin] = []) {
+  public convenience init<T: Command where T.Output == [Component]>(componentCommand: T, mixins: [Mixin] = []) {
     self.init(initialCommand: componentCommand, mixins: mixins)
-    ComponentReloadMixin(reload: componentCommand).extend(self)
+    ComponentReloadMixin(commandType: T.self).extend(self)
   }
 
-  public convenience init<R: Command where R.Output == [ViewModel]>(spotCommand: R, mixins: [Mixin] = []) {
+  public convenience init<T: Command where T.Output == [ViewModel]>(spotCommand: T, mixins: [Mixin] = []) {
     self.init(initialCommand: spotCommand, mixins: mixins)
-    SpotReloadMixin(index: 0, reload: spotCommand).extend(self)
+    SpotReloadMixin(index: 0, commandType: T.self).extend(self)
   }
 
   public required init?(coder aDecoder: NSCoder) {

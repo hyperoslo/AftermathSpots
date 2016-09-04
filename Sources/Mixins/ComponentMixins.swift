@@ -1,15 +1,17 @@
 import Aftermath
 import Spots
 
-public struct ComponentReloadMixin<R: Command where R.Output == [Component]>: Mixin {
+// MARK: - Reload components
 
-  public let reload: R
+public struct ComponentReloadMixin<T: Command where T.Output == [Component]>: Mixin {
 
-  public init(reload: R) {
-    self.reload = reload
+  public let commandType: T.Type
+
+  public init(commandType: T.Type) {
+    self.commandType = commandType
   }
 
   public func extend(controller: AftermathController) {
-    react(to: R.self, with: ComponentReloadBuilder(controller: controller).buildReaction())
+    react(to: commandType, with: ComponentReloadBuilder(controller: controller).buildReaction())
   }
 }

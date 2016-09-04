@@ -1,17 +1,15 @@
 import Spots
 import Aftermath
 
+// MARK: - Reload components
+
 public struct ComponentReloadBuilder: ReactionBuilder {
 
-  public weak var controller: SpotsController?
+  public weak var controller: AftermathController?
 
-  // MARK: - Initialization
-
-  public init(controller: SpotsController) {
+  public init(controller: AftermathController) {
     self.controller = controller
   }
-
-  // MARK: - Reaction Builder
 
   public func buildReaction() -> Reaction<[Component]> {
     return Reaction(
@@ -22,7 +20,7 @@ public struct ComponentReloadBuilder: ReactionBuilder {
         self.controller?.reloadIfNeeded(components)
       },
       fail: { error in
-        // Show error
+        self.controller?.errorHandler?(error: error)
       },
       complete: {
         self.controller?.refreshControl.endRefreshing()
