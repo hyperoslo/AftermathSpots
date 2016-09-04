@@ -1,9 +1,5 @@
-//
-//  Mixin.swift
-//  Pods
-//
-//  Created by Vadym Markov on 04/09/16.
-//
-//
+import Aftermath
 
-import Foundation
+public protocol Mixin: ReactionProducer, CommandProducer {
+  func extend(controller: AftermathController)
+}
