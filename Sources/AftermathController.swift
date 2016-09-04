@@ -12,11 +12,11 @@ public class AftermathController: SpotsController, CommandProducer {
 
   // MARK: - Initialization
 
-  public required init(initialCommand: AnyCommand? = nil, mixins: [Mixin] = []) {
+  public required init(spots: [Spotable] = [], initialCommand: AnyCommand? = nil, mixins: [Mixin] = []) {
     self.initialCommand = initialCommand
     self.mixins = mixins
 
-    super.init(spots: [])
+    super.init(spots: spots)
 
     for mixin in mixins {
       mixin.extend(self)
@@ -28,8 +28,8 @@ public class AftermathController: SpotsController, CommandProducer {
     ComponentReloadMixin(commandType: T.self).extend(self)
   }
 
-  public convenience init<T: Command where T.Output == [ViewModel]>(spotCommand: T, mixins: [Mixin] = []) {
-    self.init(initialCommand: spotCommand, mixins: mixins)
+  public convenience init<T: Command where T.Output == [ViewModel]>(spots: [Spotable], spotCommand: T, mixins: [Mixin] = []) {
+    self.init(spots: spots, initialCommand: spotCommand, mixins: mixins)
     SpotReloadMixin(index: 0, commandType: T.self).extend(self)
   }
 

@@ -1,4 +1,5 @@
 import UIKit
+import Spots
 import AftermathSpots
 
 class MainController: UITabBarController {
@@ -14,7 +15,7 @@ class MainController: UITabBarController {
   }()
 
   lazy var usersController: UINavigationController = {
-    let controller = AftermathController(spotCommand: UsersStory.Command())
+    let controller = AftermathController(spots: [ListSpot()], spotCommand: UsersStory.Command())
     let navigationController = UINavigationController(rootViewController: controller)
     controller.view.stylize(Styles.Content)
     controller.tabBarItem.title = "Users"
