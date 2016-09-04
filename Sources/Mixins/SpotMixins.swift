@@ -83,6 +83,7 @@ public class SpotScrollingMixin<T: Command where T.Output == Insert>: Mixin {
   }
 
   public func extend(controller: AftermathController) {
+    controller.spotsScrollDelegate = self
     react(to: T.self, with: SpotInsertBuilder(index: index, controller: controller).buildReaction())
   }
 }
