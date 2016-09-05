@@ -36,8 +36,8 @@ public class AftermathController: SpotsController, CommandProducer {
     ComponentReloadMixin(commandType: T.self).extend(self)
   }
 
-  public convenience init<T: Command where T.Output == [ViewModel]>(spots: [Spotable], spotCommand: T, mixins: [Mixin] = []) {
-    self.init(spots: spots, initialCommand: spotCommand, mixins: mixins)
+  public convenience init<T: Command where T.Output == [ViewModel]>(cacheKey: String? = nil, spots: [Spotable], spotCommand: T, mixins: [Mixin] = []) {
+    self.init(cacheKey: cacheKey, spots: spots, initialCommand: spotCommand, mixins: mixins)
     SpotReloadMixin(index: 0, commandType: T.self).extend(self)
   }
 
