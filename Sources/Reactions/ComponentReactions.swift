@@ -17,7 +17,9 @@ public struct ComponentReloadBuilder: ReactionBuilder {
         self.controller?.refreshControl.beginRefreshing()
       },
       done: { (components: [Component]) in
-        self.controller?.reloadIfNeeded(components)
+        self.controller?.reloadIfNeeded(components) {
+          self.controller?.cache()
+        }
       },
       fail: { error in
         self.controller?.errorHandler?(error: error)
