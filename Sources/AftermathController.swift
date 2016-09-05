@@ -12,19 +12,27 @@ public class AftermathController: SpotsController, CommandProducer {
 
   // MARK: - Initialization
 
-  public required init(spots: [Spotable] = [], initialCommand: AnyCommand? = nil, mixins: [Mixin] = []) {
+  public required init(cacheKey: String? = nil, spots: [Spotable] = [], initialCommand: AnyCommand? = nil, mixins: [Mixin] = []) {
+    var stateCache: SpotCache? = nil
+    var cachedSpots: [Spotable] = spots
+    if let cacheKey = cacheKey {
+      stateCache = SpotCache(key: cacheKey)
+      cachedSpots = Parser.parse(stateCache!.load())
+    }
+
     self.initialCommand = initialCommand
     self.mixins = mixins
-
-    super.init(spots: spots)
+    super.init()
+    self.stateCache = stateCache
+    self.spots = cachedSpots
 
     for mixin in mixins {
       mixin.extend(self)
     }
   }
 
-  public convenience init<T: Command where T.Output == [Component]>(componentCommand: T, mixins: [Mixin] = []) {
-    self.init(initialCommand: componentCommand, mixins: mixins)
+  public convenience init<T: Command where T.Output == [Component]>(cacheKey: String? = nil, componentCommand: T, mixins: [Mixin] = []) {
+    self.init(cacheKey: cacheKey, initialCommand: componentCommand, mixins: mixins)
     ComponentReloadMixin(commandType: T.self).extend(self)
   }
 
@@ -55,9 +63,7 @@ public class AftermathController: SpotsController, CommandProducer {
   public override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
 
-    if let initialCommand = initialCommand {
-      execute(initialCommand)
-    }
+    executeInitial()
   }
 
   public func executeInitial() {
