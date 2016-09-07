@@ -3,10 +3,15 @@ import Spots
 import Brick
 import Aftermath
 
+public enum AfterMathRefreshBehaviour {
+  case Always, OnlyWhenEmpty, Disabled
+}
+
 public class AftermathController: SpotsController, CommandProducer {
 
   let initialCommand: AnyCommand?
   var mixins = [Mixin]()
+  var refreshBehaviour: AfterMathRefreshBehaviour = .OnlyWhenEmpty
 
   public var errorHandler: ((error: ErrorType) -> Void)?
 

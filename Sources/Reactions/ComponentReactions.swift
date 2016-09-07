@@ -1,5 +1,6 @@
 import Spots
 import Aftermath
+import Sugar
 
 // MARK: - Reload components
 
@@ -14,7 +15,14 @@ public struct ComponentReloadBuilder: ReactionBuilder {
   public func buildReaction() -> Reaction<[Component]> {
     return Reaction(
       progress: {
-        self.controller?.refreshControl.beginRefreshing()
+        guard self.controller?.refreshBehaviour != .Disabled else { return }
+
+        if self.controller?.refreshBehaviour == .Always {
+          self.controller?.refreshControl.beginRefreshing()
+        } else if self.controller?.refreshBehaviour == .OnlyWhenEmpty &&
+          self.controller?.spots.isEmpty == true {
+          self.controller?.refreshControl.beginRefreshing()
+        }
       },
       done: { (components: [Component]) in
         self.controller?.reloadIfNeeded(components) {
@@ -25,7 +33,11 @@ public struct ComponentReloadBuilder: ReactionBuilder {
         self.controller?.errorHandler?(error: error)
       },
       complete: {
-        self.controller?.refreshControl.endRefreshing()
+        if self.controller?.refreshControl.refreshing == true {
+          delay(0.1) {
+            self.controller?.refreshControl.endRefreshing()
+          }
+        }
       }
     )
   }
