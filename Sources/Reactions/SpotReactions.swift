@@ -16,16 +16,15 @@ public struct SpotReloadBuilder: ReactionBuilder {
 
   public func buildReaction() -> Reaction<[ViewModel]> {
     return Reaction(
-      progress: {
+      wait: {
         self.controller?.refreshControl.beginRefreshing()
       },
-      done: { (viewModels: [ViewModel]) in
+      consume: { (viewModels: [ViewModel]) in
         self.controller?.spot(self.index, Spotable.self)?.reloadIfNeeded(viewModels)
+        self.controller?.refreshControl.endRefreshing()
       },
-      fail: { error in
+      rescue: { error in
         self.controller?.errorHandler?(error: error)
-      },
-      complete: {
         self.controller?.refreshControl.endRefreshing()
       }
     )
@@ -52,7 +51,7 @@ public struct SpotInsertBuilder: ReactionBuilder {
 
   public func buildReaction() -> Reaction<Insert> {
     return Reaction(
-      done: { (insert: Insert) in
+      consume: { (insert: Insert) in
         let spot = self.controller?.spot(self.index, Spotable.self)
 
         switch insert {
@@ -64,7 +63,7 @@ public struct SpotInsertBuilder: ReactionBuilder {
           spot?.insert(viewModel, index: index)
         }
       },
-      fail: { error in
+      rescue: { error in
         self.controller?.errorHandler?(error: error)
       }
     )
@@ -85,14 +84,14 @@ public struct SpotUpdateBuilder: ReactionBuilder {
 
   public func buildReaction() -> Reaction<ViewModel> {
     return Reaction(
-      done: { (viewModel: ViewModel) in
+      consume: { (viewModel: ViewModel) in
         guard let items = self.controller?.spot(self.index, Spotable.self)?.items,
           itemIndex = items.indexOf({ $0.identifier == viewModel.identifier })
           else { return }
 
         self.controller?.spot(self.index, Spotable.self)?.update(viewModel, index: itemIndex)
       },
-      fail: { error in
+      rescue: { error in
         self.controller?.errorHandler?(error: error)
       }
     )
@@ -113,14 +112,14 @@ public struct SpotDeleteBuilder: ReactionBuilder {
 
   public func buildReaction() -> Reaction<ViewModel> {
     return Reaction(
-      done: { (viewModel: ViewModel) in
+      consume: { (viewModel: ViewModel) in
         guard let items = self.controller?.spot(self.index, Spotable.self)?.items,
           itemIndex = items.indexOf({ $0.identifier == viewModel.identifier })
           else { return }
 
         self.controller?.spot(self.index, Spotable.self)?.delete(itemIndex)
       },
-      fail: { error in
+      rescue: { error in
         self.controller?.errorHandler?(error: error)
       }
     )

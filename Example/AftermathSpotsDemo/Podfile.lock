@@ -60,10 +60,10 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Aftermath:
-    :commit: e579181ce01721cd334285197d5a3feb54579bac
+    :commit: 39390b520affd2bf289f54ec27af3cfc8e15d5b6
     :git: https://github.com/hyperoslo/Aftermath
   AftermathCompass:
-    :commit: b33e14771b7974291b34dce6f0b218343152c254
+    :commit: ca831f3d94ada5c5712f2b34498485382f5c6079
     :git: https://github.com/hyperoslo/AftermathCompass
   Cache:
     :commit: cff7ea060664c856ec76f3345cf1e541b5dc0e18
@@ -72,7 +72,7 @@ CHECKOUT OPTIONS:
     :commit: 0f018c3d27ff43af03abca410030f3a09dd45e71
     :git: https://github.com/hyperoslo/Imaginary
   Spots:
-    :commit: 335c8b43f891a89a3dcc7f70150943e3c70becf9
+    :commit: 2e23db87a553db99b739c0b0548185a93828a438
     :git: https://github.com/hyperoslo/Spots
 
 SPEC CHECKSUMS:

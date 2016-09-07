@@ -13,18 +13,17 @@ public struct ComponentReloadBuilder: ReactionBuilder {
 
   public func buildReaction() -> Reaction<[Component]> {
     return Reaction(
-      progress: {
+      wait: {
         self.controller?.refreshControl.beginRefreshing()
       },
-      done: { (components: [Component]) in
+      consume: { (components: [Component]) in
         self.controller?.reloadIfNeeded(components) {
           self.controller?.cache()
         }
+        self.controller?.refreshControl.endRefreshing()
       },
-      fail: { error in
+      rescue: { error in
         self.controller?.errorHandler?(error: error)
-      },
-      complete: {
         self.controller?.refreshControl.endRefreshing()
       }
     )
