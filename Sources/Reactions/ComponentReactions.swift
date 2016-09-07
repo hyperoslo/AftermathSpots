@@ -13,8 +13,9 @@ public struct ComponentReloadBuilder: ReactionBuilder {
   }
 
   public func buildReaction() -> Reaction<[Component]> {
+
     return Reaction(
-      progress: {
+      wait: {
         guard self.controller?.refreshBehaviour != .Disabled else { return }
 
         if self.controller?.refreshBehaviour == .Always {
@@ -24,15 +25,18 @@ public struct ComponentReloadBuilder: ReactionBuilder {
           self.controller?.refreshControl.beginRefreshing()
         }
       },
-      done: { (components: [Component]) in
+      consume: { (components: [Component]) in
         self.controller?.reloadIfNeeded(components) {
           self.controller?.cache()
         }
+        if self.controller?.refreshControl.refreshing == true {
+          delay(0.1) {
+            self.controller?.refreshControl.endRefreshing()
+          }
+        }
       },
-      fail: { error in
+      rescue: { error in
         self.controller?.errorHandler?(error: error)
-      },
-      complete: {
         if self.controller?.refreshControl.refreshing == true {
           delay(0.1) {
             self.controller?.refreshControl.endRefreshing()

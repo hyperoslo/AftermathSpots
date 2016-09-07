@@ -27,13 +27,13 @@ struct UsersStory {
           })
         })
         .done({ items in
-          self.fulfill(items)
+          self.publish(data: items)
         })
         .fail({ error in
-          self.reject(error)
+          self.publish(error: error)
         })
 
-      return progress
+      return .Progress
     }
   }
 }
