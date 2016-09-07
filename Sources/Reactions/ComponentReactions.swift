@@ -12,6 +12,12 @@ public struct ComponentReloadBuilder: ReactionBuilder {
     self.controller = controller
   }
 
+  private func stopReloading() {
+    if self.controller?.refreshControl.refreshing == true {
+      delay(0.1) { self.controller?.refreshControl.endRefreshing() }
+    }
+  }
+
   public func buildReaction() -> Reaction<[Component]> {
 
     return Reaction(
@@ -29,19 +35,11 @@ public struct ComponentReloadBuilder: ReactionBuilder {
         self.controller?.reloadIfNeeded(components) {
           self.controller?.cache()
         }
-        if self.controller?.refreshControl.refreshing == true {
-          delay(0.1) {
-            self.controller?.refreshControl.endRefreshing()
-          }
-        }
+        self.stopReloading()
       },
       rescue: { error in
         self.controller?.errorHandler?(error: error)
-        if self.controller?.refreshControl.refreshing == true {
-          delay(0.1) {
-            self.controller?.refreshControl.endRefreshing()
-          }
-        }
+        self.stopReloading()
       }
     )
   }
