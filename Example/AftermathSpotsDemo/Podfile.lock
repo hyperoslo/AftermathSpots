@@ -59,7 +59,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Aftermath:
-    :commit: e1c74a8273776e0af5c6631b5c69fa07aebaa47a
+    :commit: 007fd1e62904836bdd5a02062becd305e04847c2
     :git: https://github.com/hyperoslo/Aftermath
   AftermathCompass:
     :commit: a2047885caf3b1c8d141ca135c031854e825b53d
