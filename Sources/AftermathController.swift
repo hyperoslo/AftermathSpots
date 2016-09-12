@@ -73,7 +73,7 @@ public class AftermathController: SpotsController, CommandProducer {
 
   public func executeInitial() {
     if let initialCommand = initialCommand {
-      execute(initialCommand)
+      execute(command: initialCommand)
     }
   }
 
