@@ -91,6 +91,6 @@ public class SpotScrollingMixin<T: Command where T.Output == Insert>: Mixin {
 extension SpotScrollingMixin: SpotsScrollDelegate {
 
   public func spotDidReachEnd(completion: Completion) {
-    execute(command)
+    execute(command: command)
   }
 }

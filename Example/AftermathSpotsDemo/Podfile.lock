@@ -24,11 +24,10 @@ PODS:
   - Spots (3.0.0):
     - Brick
     - Cache
-    - Hue
     - Sugar
     - Tailor
   - Sugar (1.2.0)
-  - Tailor (1.2.1):
+  - Tailor (1.2.3):
     - Sugar
   - When (1.0.4)
 
@@ -60,19 +59,19 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Aftermath:
-    :commit: 39390b520affd2bf289f54ec27af3cfc8e15d5b6
+    :commit: 007fd1e62904836bdd5a02062becd305e04847c2
     :git: https://github.com/hyperoslo/Aftermath
   AftermathCompass:
-    :commit: ca831f3d94ada5c5712f2b34498485382f5c6079
+    :commit: a2047885caf3b1c8d141ca135c031854e825b53d
     :git: https://github.com/hyperoslo/AftermathCompass
   Cache:
     :commit: cff7ea060664c856ec76f3345cf1e541b5dc0e18
     :git: https://github.com/hyperoslo/Cache
   Imaginary:
-    :commit: 0f018c3d27ff43af03abca410030f3a09dd45e71
+    :commit: e111dcfcd5a67e6d52febc48c5ebfb9090f77af5
     :git: https://github.com/hyperoslo/Imaginary
   Spots:
-    :commit: 2e23db87a553db99b739c0b0548185a93828a438
+    :commit: dd11ee070757d9c56395ea771485b7b13a842cab
     :git: https://github.com/hyperoslo/Spots
 
 SPEC CHECKSUMS:
@@ -88,9 +87,9 @@ SPEC CHECKSUMS:
   Hue: b4d7f4923dd16237f9cbc1783c3c81438b4391f4
   Imaginary: 62a9ce1e6d7831ede429c8221a183f03ec2a90bc
   Malibu: 49454a9ce422ad8e230f4699a43d88264a4d7e06
-  Spots: fa57db661cb2c6978850e02fc3695949bde29217
+  Spots: 751e8951f6fe34389a3b650fb36083b59368d83e
   Sugar: 556b623f0f8846cf08de7302701892f11d567419
-  Tailor: 4078f0dd0541adb465f1ad81b1d2bdb7571d6b0e
+  Tailor: 14b613fc76a4e7878e4a03dff793ecc650ac9c4e
   When: 033104df132ebfa75f4d3a9ba3e7a9865a573a1c
 
 PODFILE CHECKSUM: 3a77f66848e671abe3e498115081d7a891dcdc1d
