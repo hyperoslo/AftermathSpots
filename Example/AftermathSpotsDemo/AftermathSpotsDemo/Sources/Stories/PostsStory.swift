@@ -27,7 +27,7 @@ struct PostsStory {
               action: "posts:\(post.id)")
           })
 
-          return [Component(identifier: 0, kind: Component.Kind.List.rawValue, items: items)]
+          return [Component(identifier: "id", kind: Component.Kind.List.rawValue, items: items)]
         })
         .done({ items in
           self.publish(data: items)
