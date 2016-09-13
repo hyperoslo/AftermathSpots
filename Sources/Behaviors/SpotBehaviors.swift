@@ -4,7 +4,7 @@ import Brick
 
 // MARK: - Reload spots
 
-public struct SpotReloadMixin<T: Command where T.Output == [ViewModel]>: Mixin {
+public struct SpotReloadBehavior<T: Command where T.Output == [ViewModel]>: Behavior {
 
   public let index: Int
   public let commandType: T.Type
@@ -21,7 +21,7 @@ public struct SpotReloadMixin<T: Command where T.Output == [ViewModel]>: Mixin {
 
 // MARK: - Insert view model
 
-public struct SpotInsertMixin<T: Command where T.Output == Insert>: Mixin {
+public struct SpotInsertBehavior<T: Command where T.Output == Insert>: Behavior {
 
   public let index: Int
   public let commandType: T.Type
@@ -38,7 +38,7 @@ public struct SpotInsertMixin<T: Command where T.Output == Insert>: Mixin {
 
 // MARK: - Update view model at index
 
-public struct SpotUpdateMixin<T: Command where T.Output == ViewModel>: Mixin {
+public struct SpotUpdateBehavior<T: Command where T.Output == ViewModel>: Behavior {
 
   public let index: Int
   public let commandType: T.Type
@@ -55,7 +55,7 @@ public struct SpotUpdateMixin<T: Command where T.Output == ViewModel>: Mixin {
 
 // MARK: - Delete view model at index
 
-public struct SpotDeleteMixin<T: Command where T.Output == ViewModel>: Mixin {
+public struct SpotDeleteBehavior<T: Command where T.Output == ViewModel>: Behavior {
 
   public let index: Int
   public let commandType: T.Type
@@ -72,7 +72,7 @@ public struct SpotDeleteMixin<T: Command where T.Output == ViewModel>: Mixin {
 
 // MARK: - Infinite scrolling
 
-public class SpotScrollingMixin<T: Command where T.Output == Insert>: Mixin {
+public class SpotScrollingBehavior<T: Command where T.Output == Insert>: Behavior {
 
   public let index: Int
   public let command: T
@@ -88,7 +88,7 @@ public class SpotScrollingMixin<T: Command where T.Output == Insert>: Mixin {
   }
 }
 
-extension SpotScrollingMixin: SpotsScrollDelegate {
+extension SpotScrollingBehavior: SpotsScrollDelegate {
 
   public func spotDidReachEnd(completion: Completion) {
     execute(command: command)

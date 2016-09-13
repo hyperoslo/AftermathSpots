@@ -3,21 +3,21 @@ import Spots
 import Brick
 import Aftermath
 
-public enum AfterMathRefreshBehaviour {
+public enum AfterMathRefreshMode {
   case Always, OnlyWhenEmpty, Disabled
 }
 
 public class AftermathController: SpotsController, CommandProducer {
 
   let initialCommand: AnyCommand?
-  var mixins = [Mixin]()
-  var refreshBehaviour: AfterMathRefreshBehaviour = .OnlyWhenEmpty
+  var behaviors = [Behavior]()
+  var refreshMode: AfterMathRefreshMode = .OnlyWhenEmpty
 
   public var errorHandler: ((error: ErrorType) -> Void)?
 
   // MARK: - Initialization
 
-  public required init(cacheKey: String? = nil, spots: [Spotable] = [], initialCommand: AnyCommand? = nil, mixins: [Mixin] = []) {
+  public required init(cacheKey: String? = nil, spots: [Spotable] = [], initialCommand: AnyCommand? = nil, behaviors: [Behavior] = []) {
     var stateCache: SpotCache? = nil
     var cachedSpots: [Spotable] = spots
     if let cacheKey = cacheKey {
@@ -26,24 +26,24 @@ public class AftermathController: SpotsController, CommandProducer {
     }
 
     self.initialCommand = initialCommand
-    self.mixins = mixins
+    self.behaviors = behaviors
     super.init()
     self.stateCache = stateCache
     self.spots = cachedSpots
 
-    for mixin in mixins {
-      mixin.extend(self)
+    for behavior in behaviors {
+      behavior.extend(self)
     }
   }
 
-  public convenience init<T: Command where T.Output == [Component]>(cacheKey: String? = nil, componentCommand: T, mixins: [Mixin] = []) {
-    self.init(cacheKey: cacheKey, initialCommand: componentCommand, mixins: mixins)
-    ComponentReloadMixin(commandType: T.self).extend(self)
+  public convenience init<T: Command where T.Output == [Component]>(cacheKey: String? = nil, componentCommand: T, behaviors: [Behavior] = []) {
+    self.init(cacheKey: cacheKey, initialCommand: componentCommand, behaviors: behaviors)
+    ComponentReloadBehavior(commandType: T.self).extend(self)
   }
 
-  public convenience init<T: Command where T.Output == [ViewModel]>(cacheKey: String? = nil, spots: [Spotable], spotCommand: T, mixins: [Mixin] = []) {
-    self.init(cacheKey: cacheKey, spots: spots, initialCommand: spotCommand, mixins: mixins)
-    SpotReloadMixin(index: 0, commandType: T.self).extend(self)
+  public convenience init<T: Command where T.Output == [ViewModel]>(cacheKey: String? = nil, spots: [Spotable], spotCommand: T, behaviors: [Behavior] = []) {
+    self.init(cacheKey: cacheKey, spots: spots, initialCommand: spotCommand, behaviors: behaviors)
+    SpotReloadBehavior(index: 0, commandType: T.self).extend(self)
   }
 
   public required init?(coder aDecoder: NSCoder) {
@@ -78,7 +78,7 @@ public class AftermathController: SpotsController, CommandProducer {
   }
 
   public func disposeReactions() {
-    mixins.forEach {
+    behaviors.forEach {
       $0.disposeAll()
     }
   }
