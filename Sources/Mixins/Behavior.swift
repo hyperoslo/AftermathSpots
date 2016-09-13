@@ -1,5 +1,5 @@
 import Aftermath
 
-public protocol Mixin: ReactionProducer, CommandProducer {
+public protocol Behavior: ReactionProducer, CommandProducer {
   func extend(controller: AftermathController)
 }

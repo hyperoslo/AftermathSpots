@@ -3,7 +3,7 @@ import Spots
 
 // MARK: - Reload components
 
-public struct ComponentReloadMixin<T: Command where T.Output == [Component]>: Mixin {
+public struct ComponentReloadBehavior<T: Command where T.Output == [Component]>: Behavior {
 
   public let commandType: T.Type
 
