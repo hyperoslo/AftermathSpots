@@ -13,4 +13,5 @@ target 'AftermathSpotsDemo' do
   pod 'AftermathCompass', git: 'https://github.com/hyperoslo/AftermathCompass'
   pod 'Cache', git: 'https://github.com/hyperoslo/Cache'
   pod 'Imaginary', git: 'https://github.com/hyperoslo/Imaginary'
+  pod 'CryptoSwift', '0.5.2'
 end

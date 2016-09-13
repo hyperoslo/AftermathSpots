@@ -37,6 +37,7 @@ DEPENDENCIES:
   - AftermathSpots (from `../../`)
   - Cache (from `https://github.com/hyperoslo/Cache`)
   - Cartography
+  - CryptoSwift (= 0.5.2)
   - Fashion
   - Hue
   - Imaginary (from `https://github.com/hyperoslo/Imaginary`)
@@ -62,7 +63,7 @@ CHECKOUT OPTIONS:
     :commit: 007fd1e62904836bdd5a02062becd305e04847c2
     :git: https://github.com/hyperoslo/Aftermath
   AftermathCompass:
-    :commit: a2047885caf3b1c8d141ca135c031854e825b53d
+    :commit: 1354b820e2f856e6bf0ed3d63b66b6089da9c769
     :git: https://github.com/hyperoslo/AftermathCompass
   Cache:
     :commit: cff7ea060664c856ec76f3345cf1e541b5dc0e18
@@ -71,7 +72,7 @@ CHECKOUT OPTIONS:
     :commit: e111dcfcd5a67e6d52febc48c5ebfb9090f77af5
     :git: https://github.com/hyperoslo/Imaginary
   Spots:
-    :commit: dd11ee070757d9c56395ea771485b7b13a842cab
+    :commit: 4c423c0b380e851da917cb82c8d5316763196404
     :git: https://github.com/hyperoslo/Spots
 
 SPEC CHECKSUMS:
@@ -92,6 +93,6 @@ SPEC CHECKSUMS:
   Tailor: 14b613fc76a4e7878e4a03dff793ecc650ac9c4e
   When: 033104df132ebfa75f4d3a9ba3e7a9865a573a1c
 
-PODFILE CHECKSUM: 3a77f66848e671abe3e498115081d7a891dcdc1d
+PODFILE CHECKSUM: 4d488db6e905eb5c01bda671bcf2f03a2df49000
 
 COCOAPODS: 1.0.1
