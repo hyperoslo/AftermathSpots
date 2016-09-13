@@ -3,7 +3,7 @@ import Spots
 import Brick
 import Aftermath
 
-public enum AfterMathRefreshBehaviour {
+public enum AfterMathRefreshMode {
   case Always, OnlyWhenEmpty, Disabled
 }
 
@@ -11,7 +11,7 @@ public class AftermathController: SpotsController, CommandProducer {
 
   let initialCommand: AnyCommand?
   var behaviors = [Behavior]()
-  var refreshBehaviour: AfterMathRefreshBehaviour = .OnlyWhenEmpty
+  var refreshMode: AfterMathRefreshMode = .OnlyWhenEmpty
 
   public var errorHandler: ((error: ErrorType) -> Void)?
 
