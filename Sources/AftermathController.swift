@@ -11,7 +11,9 @@ public class AftermathController: SpotsController, CommandProducer {
 
   let initialCommand: AnyCommand?
   var behaviors = [Behavior]()
-  var refreshMode: AfterMathRefreshMode = .OnlyWhenEmpty
+
+  public var refreshMode: AfterMathRefreshMode = .OnlyWhenEmpty
+  public var refreshOnViewDidAppear: Bool = true
 
   public var errorHandler: ((error: ErrorType) -> Void)?
 
@@ -67,7 +69,6 @@ public class AftermathController: SpotsController, CommandProducer {
 
   public override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-
     executeInitial()
   }
 
