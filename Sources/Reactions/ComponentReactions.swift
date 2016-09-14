@@ -32,6 +32,7 @@ public struct ComponentReloadBuilder: ReactionBuilder {
         }
       },
       consume: { (components: [Component]) in
+        guard self.controller?.refreshOnViewDidAppear == true else { return }
         self.controller?.reloadIfNeeded(components) {
           self.controller?.cache()
         }
