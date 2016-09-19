@@ -7,6 +7,12 @@ public enum AfterMathRefreshMode {
   case Always, OnlyWhenEmpty, Disabled
 }
 
+public enum SpotsFeature {
+  case PullToRefresh
+
+  static let allValues = [PullToRefresh]
+}
+
 public class AftermathController: SpotsController, CommandProducer {
 
   let initialCommand: AnyCommand?
