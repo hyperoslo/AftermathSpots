@@ -76,7 +76,8 @@ public class AftermathController: SpotsController, CommandProducer {
 
   public override func viewDidLoad() {
     super.viewDidLoad()
-    spotsRefreshDelegate = self
+
+    toggle(features: enabledFeatures)
   }
 
   public override func viewWillAppear(animated: Bool) {
