@@ -20,6 +20,9 @@ public class AftermathController: SpotsController, CommandProducer {
 
   public var refreshMode: AfterMathRefreshMode = .OnlyWhenEmpty
   public var refreshOnViewDidAppear: Bool = true
+  public var enabledFeatures: [SpotsFeature] = [.PullToRefresh] {
+    didSet { toggle(features: enabledFeatures) }
+  }
 
   public var errorHandler: ((error: ErrorType) -> Void)?
 
