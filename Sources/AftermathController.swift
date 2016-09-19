@@ -92,6 +92,15 @@ public class AftermathController: SpotsController, CommandProducer {
       $0.disposeAll()
     }
   }
+
+  func toggle(features features: [SpotsFeature]) {
+    for feature in SpotsFeature.allValues {
+      switch feature {
+      case .PullToRefresh:
+        self.spotsRefreshDelegate = features.contains(feature) ? self : nil
+      }
+    }
+  }
 }
 
 extension AftermathController: SpotsRefreshDelegate {
