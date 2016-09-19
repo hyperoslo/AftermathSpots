@@ -28,7 +28,7 @@ public class AftermathController: SpotsController, CommandProducer {
 
   // MARK: - Initialization
 
-  public required init(cacheKey: String? = nil, spots: [Spotable] = [], initialCommand: AnyCommand? = nil, behaviors: [Behavior] = []) {
+  public required init(cacheKey: String? = nil, spots: [Spotable] = [], initialCommand: AnyCommand? = nil, behaviors: [Behavior] = [], features: [SpotsFeature] = SpotsFeature.allValues) {
     var stateCache: SpotCache? = nil
     var cachedSpots: [Spotable] = spots
     if let cacheKey = cacheKey {
@@ -41,6 +41,9 @@ public class AftermathController: SpotsController, CommandProducer {
     super.init()
     self.stateCache = stateCache
     self.spots = cachedSpots
+
+    enabledFeatures = features
+    toggle(features: enabledFeatures)
 
     for behavior in behaviors {
       behavior.extend(self)
