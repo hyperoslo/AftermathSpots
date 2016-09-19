@@ -76,7 +76,6 @@ public class AftermathController: SpotsController, CommandProducer {
 
   public override func viewDidLoad() {
     super.viewDidLoad()
-
     toggle(features: enabledFeatures)
   }
 
