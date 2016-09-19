@@ -101,7 +101,7 @@ public class AftermathController: SpotsController, CommandProducer {
     for feature in SpotsFeature.allValues {
       switch feature {
       case .PullToRefresh:
-        self.spotsRefreshDelegate = features.contains(feature) ? self : nil
+        spotsRefreshDelegate = features.contains(feature) ? self : nil
       }
     }
   }
