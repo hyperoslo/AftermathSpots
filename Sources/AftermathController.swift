@@ -31,6 +31,7 @@ public class AftermathController: SpotsController, CommandProducer {
   public required init(cacheKey: String? = nil, spots: [Spotable] = [], initialCommand: AnyCommand? = nil, behaviors: [Behavior] = [], features: [SpotsFeature] = SpotsFeature.allValues) {
     var stateCache: SpotCache? = nil
     var cachedSpots: [Spotable] = spots
+
     if let cacheKey = cacheKey {
       stateCache = SpotCache(key: cacheKey)
       cachedSpots = Parser.parse(stateCache!.load())
