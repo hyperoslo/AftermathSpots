@@ -41,9 +41,7 @@ public class AftermathController: SpotsController, CommandProducer {
     super.init()
     self.stateCache = stateCache
     self.spots = cachedSpots
-
-    enabledFeatures = features
-    toggle(features: enabledFeatures)
+    self.enabledFeatures = features
 
     for behavior in behaviors {
       behavior.extend(self)
