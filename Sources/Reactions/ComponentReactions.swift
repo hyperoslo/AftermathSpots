@@ -1,6 +1,5 @@
 import Spots
 import Aftermath
-import Sugar
 
 // MARK: - Reload components
 
