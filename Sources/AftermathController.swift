@@ -54,7 +54,7 @@ public class AftermathController: SpotsController, CommandProducer {
     ComponentReloadBehavior(commandType: T.self).extend(self)
   }
 
-  public convenience init<T: Command where T.Output == [ViewModel]>(cacheKey: String? = nil, spots: [Spotable], spotCommand: T, behaviors: [Behavior] = []) {
+  public convenience init<T: Command where T.Output == [Item]>(cacheKey: String? = nil, spots: [Spotable], spotCommand: T, behaviors: [Behavior] = []) {
     self.init(cacheKey: cacheKey, spots: spots, initialCommand: spotCommand, behaviors: behaviors)
     SpotReloadBehavior(index: 0, commandType: T.self).extend(self)
   }

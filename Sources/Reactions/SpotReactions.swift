@@ -14,12 +14,12 @@ public struct SpotReloadBuilder: ReactionBuilder {
     self.controller = controller
   }
 
-  public func buildReaction() -> Reaction<[ViewModel]> {
+  public func buildReaction() -> Reaction<[Item]> {
     return Reaction(
       wait: {
         self.controller?.refreshControl.beginRefreshing()
       },
-      consume: { (viewModels: [ViewModel]) in
+      consume: { (viewModels: [Item]) in
         self.controller?.spot(self.index, Spotable.self)?.reloadIfNeeded(viewModels)
         self.controller?.refreshControl.endRefreshing()
       },
@@ -34,9 +34,9 @@ public struct SpotReloadBuilder: ReactionBuilder {
 // MARK: - Insert view model
 
 public enum Insert {
-  case Append([ViewModel])
-  case Prepend([ViewModel])
-  case Index(Int, ViewModel)
+  case Append([Item])
+  case Prepend([Item])
+  case Index(Int, Item)
 }
 
 public struct SpotInsertBuilder: ReactionBuilder {
@@ -82,9 +82,9 @@ public struct SpotUpdateBuilder: ReactionBuilder {
     self.controller = controller
   }
 
-  public func buildReaction() -> Reaction<ViewModel> {
+  public func buildReaction() -> Reaction<Item> {
     return Reaction(
-      consume: { (viewModel: ViewModel) in
+      consume: { (viewModel: Item) in
         guard let items = self.controller?.spot(self.index, Spotable.self)?.items,
           itemIndex = items.indexOf({ $0.identifier == viewModel.identifier })
           else { return }
@@ -110,9 +110,9 @@ public struct SpotDeleteBuilder: ReactionBuilder {
     self.controller = controller
   }
 
-  public func buildReaction() -> Reaction<ViewModel> {
+  public func buildReaction() -> Reaction<Item> {
     return Reaction(
-      consume: { (viewModel: ViewModel) in
+      consume: { (viewModel: Item) in
         guard let items = self.controller?.spot(self.index, Spotable.self)?.items,
           itemIndex = items.indexOf({ $0.identifier == viewModel.identifier })
           else { return }

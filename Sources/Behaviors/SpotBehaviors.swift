@@ -4,7 +4,7 @@ import Brick
 
 // MARK: - Reload spots
 
-public struct SpotReloadBehavior<T: Command where T.Output == [ViewModel]>: Behavior {
+public struct SpotReloadBehavior<T: Command where T.Output == [Item]>: Behavior {
 
   public let index: Int
   public let commandType: T.Type
@@ -38,7 +38,7 @@ public struct SpotInsertBehavior<T: Command where T.Output == Insert>: Behavior 
 
 // MARK: - Update view model at index
 
-public struct SpotUpdateBehavior<T: Command where T.Output == ViewModel>: Behavior {
+public struct SpotUpdateBehavior<T: Command where T.Output == Item>: Behavior {
 
   public let index: Int
   public let commandType: T.Type
@@ -55,7 +55,7 @@ public struct SpotUpdateBehavior<T: Command where T.Output == ViewModel>: Behavi
 
 // MARK: - Delete view model at index
 
-public struct SpotDeleteBehavior<T: Command where T.Output == ViewModel>: Behavior {
+public struct SpotDeleteBehavior<T: Command where T.Output == Item>: Behavior {
 
   public let index: Int
   public let commandType: T.Type
