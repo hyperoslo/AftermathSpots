@@ -1,5 +1,6 @@
 import Spots
 import Aftermath
+import Foundation
 
 // MARK: - Reload components
 
@@ -11,14 +12,14 @@ public struct ComponentReloadBuilder: ReactionBuilder {
     self.controller = controller
   }
 
-  private func stopReloading() {
-    if self.controller?.refreshControl.refreshing == true {
-      dispatch_after(
-        dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC))),
-        dispatch_get_main_queue()
-      ) {
-        self.controller?.refreshControl.endRefreshing()
-      }
+  fileprivate func stopReloading() {
+    if self.controller?.refreshControl.isRefreshing == true {
+      DispatchQueue.main.asyncAfter(
+        deadline: DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
+        execute: {
+          self.controller?.refreshControl.endRefreshing()
+        }
+      )
     }
   }
 
@@ -43,7 +44,7 @@ public struct ComponentReloadBuilder: ReactionBuilder {
         self.stopReloading()
       },
       rescue: { error in
-        self.controller?.errorHandler?(error: error)
+        self.controller?.errorHandler?(error)
         self.stopReloading()
       }
     )

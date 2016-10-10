@@ -3,7 +3,7 @@ import Spots
 
 // MARK: - Reload components
 
-public struct ComponentReloadBehavior<T: Command where T.Output == [Component]>: Behavior {
+public struct ComponentReloadBehavior<T: Command>: Behavior where T.Output == [Component] {
 
   public let commandType: T.Type
 
@@ -11,7 +11,7 @@ public struct ComponentReloadBehavior<T: Command where T.Output == [Component]>:
     self.commandType = commandType
   }
 
-  public func extend(controller: AftermathController) {
+  public func extend(_ controller: AftermathController) {
     react(to: commandType, with: ComponentReloadBuilder(controller: controller).buildReaction())
   }
 }
