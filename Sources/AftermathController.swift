@@ -51,12 +51,16 @@ public class AftermathController: Spots.Controller, CommandProducer {
 
   public convenience init<T: Command>(cacheKey: String? = nil, componentCommand: T, behaviors: [Behavior] = []) where T.Output == [Component] {
     self.init(cacheKey: cacheKey, initialCommand: componentCommand, behaviors: behaviors)
-    ComponentReloadBehavior(commandType: T.self).extend(self)
+    let componentReloadBehavior = ComponentReloadBehavior(commandType: T.self)
+    componentReloadBehavior.extend(self)
+    self.behaviors.append(componentReloadBehavior)
   }
 
   public convenience init<T: Command>(cacheKey: String? = nil, spots: [Spotable], spotCommand: T, behaviors: [Behavior] = []) where T.Output == [Item] {
     self.init(cacheKey: cacheKey, spots: spots, initialCommand: spotCommand, behaviors: behaviors)
-    SpotReloadBehavior(index: 0, commandType: T.self).extend(self)
+    let reloadBehavior = SpotReloadBehavior(index: 0, commandType: T.self)
+    reloadBehavior.extend(self)
+    self.behaviors.append(reloadBehavior)
   }
 
   public required init?(coder aDecoder: NSCoder) {
