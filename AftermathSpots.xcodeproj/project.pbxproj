@@ -9,14 +9,6 @@
 /* Begin PBXBuildFile section */
 		BD0861BC1DAB779C003EEA7E /* Spots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0861BA1DAB779C003EEA7E /* Spots.framework */; };
 		BD0861BD1DAB779C003EEA7E /* Aftermath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD0861BB1DAB779C003EEA7E /* Aftermath.framework */; };
-		BDE85EDB1DB0D6C000761669 /* PreAppearingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE85EDA1DB0D6C000761669 /* PreAppearingBehavior.swift */; };
-		BDE85EDC1DB0D6C000761669 /* PreAppearingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE85EDA1DB0D6C000761669 /* PreAppearingBehavior.swift */; };
-		BDE85EDE1DB0D6EF00761669 /* PostAppearingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE85EDD1DB0D6EF00761669 /* PostAppearingBehavior.swift */; };
-		BDE85EDF1DB0D6EF00761669 /* PostAppearingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE85EDD1DB0D6EF00761669 /* PostAppearingBehavior.swift */; };
-		BDE85EE11DB0D70500761669 /* PreDisappearingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE85EE01DB0D70500761669 /* PreDisappearingBehavior.swift */; };
-		BDE85EE21DB0D70500761669 /* PreDisappearingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE85EE01DB0D70500761669 /* PreDisappearingBehavior.swift */; };
-		BDE85EE41DB0D71B00761669 /* PostDisappearingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE85EE31DB0D71B00761669 /* PostDisappearingBehavior.swift */; };
-		BDE85EE51DB0D71B00761669 /* PostDisappearingBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE85EE31DB0D71B00761669 /* PostDisappearingBehavior.swift */; };
 		D56C56A71D880D270078585E /* Behavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56C56A41D880D270078585E /* Behavior.swift */; };
 		D56C56A81D880D270078585E /* ComponentBehaviors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56C56A51D880D270078585E /* ComponentBehaviors.swift */; };
 		D56C56A91D880D270078585E /* SpotBehaviors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56C56A61D880D270078585E /* SpotBehaviors.swift */; };
@@ -55,10 +47,6 @@
 /* Begin PBXFileReference section */
 		BD0861BA1DAB779C003EEA7E /* Spots.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spots.framework; path = Carthage/Build/iOS/Spots.framework; sourceTree = "<group>"; };
 		BD0861BB1DAB779C003EEA7E /* Aftermath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Aftermath.framework; path = Carthage/Build/iOS/Aftermath.framework; sourceTree = "<group>"; };
-		BDE85EDA1DB0D6C000761669 /* PreAppearingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreAppearingBehavior.swift; sourceTree = "<group>"; };
-		BDE85EDD1DB0D6EF00761669 /* PostAppearingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAppearingBehavior.swift; sourceTree = "<group>"; };
-		BDE85EE01DB0D70500761669 /* PreDisappearingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreDisappearingBehavior.swift; sourceTree = "<group>"; };
-		BDE85EE31DB0D71B00761669 /* PostDisappearingBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDisappearingBehavior.swift; sourceTree = "<group>"; };
 		D56C56A41D880D270078585E /* Behavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Behavior.swift; sourceTree = "<group>"; };
 		D56C56A51D880D270078585E /* ComponentBehaviors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentBehaviors.swift; sourceTree = "<group>"; };
 		D56C56A61D880D270078585E /* SpotBehaviors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotBehaviors.swift; sourceTree = "<group>"; };
@@ -126,10 +114,6 @@
 			children = (
 				D56C56A41D880D270078585E /* Behavior.swift */,
 				D56C56A51D880D270078585E /* ComponentBehaviors.swift */,
-				BDE85EDD1DB0D6EF00761669 /* PostAppearingBehavior.swift */,
-				BDE85EE31DB0D71B00761669 /* PostDisappearingBehavior.swift */,
-				BDE85EDA1DB0D6C000761669 /* PreAppearingBehavior.swift */,
-				BDE85EE01DB0D70500761669 /* PreDisappearingBehavior.swift */,
 				D56C56A61D880D270078585E /* SpotBehaviors.swift */,
 			);
 			path = Behaviors;
@@ -432,10 +416,6 @@
 			files = (
 				D56C56A81D880D270078585E /* ComponentBehaviors.swift in Sources */,
 				D5982E211D7AF3CB004C4AAF /* AftermathController.swift in Sources */,
-				BDE85EE11DB0D70500761669 /* PreDisappearingBehavior.swift in Sources */,
-				BDE85EDB1DB0D6C000761669 /* PreAppearingBehavior.swift in Sources */,
-				BDE85EE41DB0D71B00761669 /* PostDisappearingBehavior.swift in Sources */,
-				BDE85EDE1DB0D6EF00761669 /* PostAppearingBehavior.swift in Sources */,
 				D56C56A71D880D270078585E /* Behavior.swift in Sources */,
 				D5982E7C1D7CA007004C4AAF /* ComponentReactions.swift in Sources */,
 				D5982E7D1D7CA007004C4AAF /* SpotReactions.swift in Sources */,
@@ -457,10 +437,6 @@
 			files = (
 				D56C56AB1D880D2D0078585E /* ComponentBehaviors.swift in Sources */,
 				D5982E271D7AF43D004C4AAF /* AftermathController.swift in Sources */,
-				BDE85EE21DB0D70500761669 /* PreDisappearingBehavior.swift in Sources */,
-				BDE85EDC1DB0D6C000761669 /* PreAppearingBehavior.swift in Sources */,
-				BDE85EE51DB0D71B00761669 /* PostDisappearingBehavior.swift in Sources */,
-				BDE85EDF1DB0D6EF00761669 /* PostAppearingBehavior.swift in Sources */,
 				D56C56AA1D880D2D0078585E /* Behavior.swift in Sources */,
 				D5982E811D7CA016004C4AAF /* ComponentReactions.swift in Sources */,
 				D5982E821D7CA016004C4AAF /* SpotReactions.swift in Sources */,
