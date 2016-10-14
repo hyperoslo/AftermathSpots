@@ -85,6 +85,34 @@ public class AftermathController: Spots.Controller, CommandProducer {
   public override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     executeInitial()
+
+    for case let behavior as PreAppearingBehavior in behaviors {
+      behavior.behaviorWillAppear(in: self)
+    }
+  }
+
+  public override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    for case let behavior as PostAppearingBehavior in behaviors {
+      behavior.behaviorDidAppear(in: self)
+    }
+  }
+
+  public override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+
+    for case let behavior as PreDisappearingBehavior in behaviors {
+      behavior.behaviorWillDisappear(in: self)
+    }
+  }
+
+  public override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+
+    for case let behavior as PostDisappearingBehavior in behaviors {
+      behavior.behaviorDidDisappear(in: self)
+    }
   }
 
   public func executeInitial() {
