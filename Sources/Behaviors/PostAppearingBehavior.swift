@@ -1,3 +1,3 @@
-protocol PostAppearingBehavior {
+public protocol PostAppearingBehavior {
   func behaviorDidAppear(in controller: AftermathController)
 }
