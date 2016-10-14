@@ -13,7 +13,7 @@ public enum SpotsFeature {
   static let allValues = [PullToRefresh]
 }
 
-public class AftermathController: SpotsController, CommandProducer {
+public class AftermathController: Spots.Controller, CommandProducer {
 
   let initialCommand: AnyCommand?
   var behaviors = [Behavior]()
@@ -24,16 +24,16 @@ public class AftermathController: SpotsController, CommandProducer {
     didSet { toggle(features: enabledFeatures) }
   }
 
-  public var errorHandler: ((error: ErrorType) -> Void)?
+  public var errorHandler: ((_ error: Error) -> Void)?
 
   // MARK: - Initialization
 
   public required init(cacheKey: String? = nil, spots: [Spotable] = [], initialCommand: AnyCommand? = nil, behaviors: [Behavior] = [], features: [SpotsFeature] = SpotsFeature.allValues) {
-    var stateCache: SpotCache? = nil
+    var stateCache: StateCache? = nil
     var cachedSpots: [Spotable] = spots
 
     if let cacheKey = cacheKey {
-      stateCache = SpotCache(key: cacheKey)
+      stateCache = StateCache(key: cacheKey)
       cachedSpots = Parser.parse(stateCache!.load())
     }
 
@@ -49,14 +49,18 @@ public class AftermathController: SpotsController, CommandProducer {
     }
   }
 
-  public convenience init<T: Command where T.Output == [Component]>(cacheKey: String? = nil, componentCommand: T, behaviors: [Behavior] = []) {
+  public convenience init<T: Command>(cacheKey: String? = nil, componentCommand: T, behaviors: [Behavior] = []) where T.Output == [Component] {
     self.init(cacheKey: cacheKey, initialCommand: componentCommand, behaviors: behaviors)
-    ComponentReloadBehavior(commandType: T.self).extend(self)
+    let componentReloadBehavior = ComponentReloadBehavior(commandType: T.self)
+    componentReloadBehavior.extend(self)
+    self.behaviors.append(componentReloadBehavior)
   }
 
-  public convenience init<T: Command where T.Output == [Item]>(cacheKey: String? = nil, spots: [Spotable], spotCommand: T, behaviors: [Behavior] = []) {
+  public convenience init<T: Command>(cacheKey: String? = nil, spots: [Spotable], spotCommand: T, behaviors: [Behavior] = []) where T.Output == [Item] {
     self.init(cacheKey: cacheKey, spots: spots, initialCommand: spotCommand, behaviors: behaviors)
-    SpotReloadBehavior(index: 0, commandType: T.self).extend(self)
+    let reloadBehavior = SpotReloadBehavior(index: 0, commandType: T.self)
+    reloadBehavior.extend(self)
+    self.behaviors.append(reloadBehavior)
   }
 
   public required init?(coder aDecoder: NSCoder) {
@@ -78,9 +82,37 @@ public class AftermathController: SpotsController, CommandProducer {
     toggle(features: enabledFeatures)
   }
 
-  public override func viewWillAppear(animated: Bool) {
+  public override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     executeInitial()
+
+    for case let behavior as PreAppearingBehavior in behaviors {
+      behavior.behaviorWillAppear(in: self)
+    }
+  }
+
+  public override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    for case let behavior as PostAppearingBehavior in behaviors {
+      behavior.behaviorDidAppear(in: self)
+    }
+  }
+
+  public override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+
+    for case let behavior as PreDisappearingBehavior in behaviors {
+      behavior.behaviorWillDisappear(in: self)
+    }
+  }
+
+  public override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+
+    for case let behavior as PostDisappearingBehavior in behaviors {
+      behavior.behaviorDidDisappear(in: self)
+    }
   }
 
   public func executeInitial() {
@@ -95,19 +127,19 @@ public class AftermathController: SpotsController, CommandProducer {
     }
   }
 
-  func toggle(features features: [SpotsFeature]) {
+  func toggle(features: [SpotsFeature]) {
     for feature in SpotsFeature.allValues {
       switch feature {
       case .PullToRefresh:
-        spotsRefreshDelegate = features.contains(feature) ? self : nil
+        refreshDelegate = features.contains(feature) ? self : nil
       }
     }
   }
 }
 
-extension AftermathController: SpotsRefreshDelegate {
+extension AftermathController: Spots.RefreshDelegate {
 
-  public func spotsDidReload(refreshControl: UIRefreshControl, completion: Completion) {
+  public func spotsDidReload(_ refreshControl: UIRefreshControl, completion: Completion) {
     executeInitial()
     completion?()
   }

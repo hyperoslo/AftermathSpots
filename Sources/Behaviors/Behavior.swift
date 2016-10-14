@@ -1,5 +1,5 @@
 import Aftermath
 
 public protocol Behavior: ReactionProducer, CommandProducer {
-  func extend(controller: AftermathController)
+  func extend(_ controller: AftermathController)
 }

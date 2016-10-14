@@ -1,2 +1,2 @@
-github "hyperoslo/Spots" "master"
-github "hyperoslo/Aftermath" "master"
+github "hyperoslo/Spots"
+github "hyperoslo/Aftermath" "swift-3"
