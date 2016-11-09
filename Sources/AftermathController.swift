@@ -13,7 +13,7 @@ public enum SpotsFeature {
   static let allValues = [PullToRefresh]
 }
 
-public class AftermathController: Spots.Controller, CommandProducer {
+open class AftermathController: Spots.Controller, CommandProducer {
 
   let initialCommand: AnyCommand?
   var behaviors = [Behavior]()
