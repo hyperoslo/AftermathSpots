@@ -77,12 +77,12 @@ open class AftermathController: Spots.Controller, CommandProducer {
 
   // MARK: - View Lifecycle
 
-  public override func viewDidLoad() {
+  open override func viewDidLoad() {
     super.viewDidLoad()
     toggle(features: enabledFeatures)
   }
 
-  public override func viewWillAppear(_ animated: Bool) {
+  open override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     executeInitial()
 
@@ -91,7 +91,7 @@ open class AftermathController: Spots.Controller, CommandProducer {
     }
   }
 
-  public override func viewDidAppear(_ animated: Bool) {
+  open override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
     for case let behavior as PostAppearingBehavior in behaviors {
@@ -99,7 +99,7 @@ open class AftermathController: Spots.Controller, CommandProducer {
     }
   }
 
-  public override func viewWillDisappear(_ animated: Bool) {
+  open override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
 
     for case let behavior as PreDisappearingBehavior in behaviors {
@@ -107,7 +107,7 @@ open class AftermathController: Spots.Controller, CommandProducer {
     }
   }
 
-  public override func viewDidDisappear(_ animated: Bool) {
+  open override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
 
     for case let behavior as PostDisappearingBehavior in behaviors {
