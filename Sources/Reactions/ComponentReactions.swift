@@ -38,7 +38,12 @@ public struct ComponentReloadBuilder: ReactionBuilder {
       },
       consume: { (components: [Component]) in
         guard self.controller?.refreshOnViewDidAppear == true else { return }
-        self.controller?.reloadIfNeeded(components) {
+
+        self.controller?.reloadIfNeeded(components, compare: { $0 != $1 }) {
+          if let controller = self.controller as? Spots.Controller {
+            Spots.Controller.spotsDidReloadComponents?(controller)
+          }
+
           self.controller?.cache()
         }
         self.stopReloading()
