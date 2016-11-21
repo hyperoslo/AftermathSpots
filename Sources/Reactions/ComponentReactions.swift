@@ -27,11 +27,11 @@ public struct ComponentReloadBuilder: ReactionBuilder {
 
     return Reaction(
       wait: {
-        guard self.controller?.refreshMode != .Disabled else { return }
+        guard self.controller?.refreshMode != .disabled else { return }
 
-        if self.controller?.refreshMode == .Always {
+        if self.controller?.refreshMode == .always {
           self.controller?.refreshControl.beginRefreshing()
-        } else if self.controller?.refreshMode == .OnlyWhenEmpty &&
+        } else if self.controller?.refreshMode == .onlyWhenEmpty &&
           self.controller?.spots.isEmpty == true {
           self.controller?.refreshControl.beginRefreshing()
         }

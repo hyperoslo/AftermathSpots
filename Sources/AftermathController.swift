@@ -4,7 +4,7 @@ import Brick
 import Aftermath
 
 public enum AfterMathRefreshMode {
-  case Always, OnlyWhenEmpty, Disabled
+  case always, onlyWhenEmpty, disabled
 }
 
 public enum SpotsFeature {
@@ -18,7 +18,7 @@ open class AftermathController: Spots.Controller, CommandProducer {
   let initialCommand: AnyCommand?
   var behaviors = [Behavior]()
 
-  public var refreshMode: AfterMathRefreshMode = .Disabled
+  public var refreshMode: AfterMathRefreshMode = .disabled
   public var refreshOnViewDidAppear: Bool = true
   public var enabledFeatures: [SpotsFeature] = [.PullToRefresh] {
     didSet { toggle(features: enabledFeatures) }
