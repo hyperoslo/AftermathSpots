@@ -18,7 +18,7 @@ open class AftermathController: Spots.Controller, CommandProducer {
   let initialCommand: AnyCommand?
   var behaviors = [Behavior]()
 
-  public var refreshMode: AfterMathRefreshMode = .OnlyWhenEmpty
+  public var refreshMode: AfterMathRefreshMode = .Disabled
   public var refreshOnViewDidAppear: Bool = true
   public var enabledFeatures: [SpotsFeature] = [.PullToRefresh] {
     didSet { toggle(features: enabledFeatures) }
