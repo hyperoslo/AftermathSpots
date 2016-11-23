@@ -24,6 +24,10 @@ open class AftermathController: Spots.Controller, CommandProducer {
     didSet { toggle(features: enabledFeatures) }
   }
 
+  public var viewModelComparison = { (lhs: [Component], rhs: [Component]) in
+    lhs !== rhs
+  }
+
   public var errorHandler: ((_ error: Error) -> Void)?
 
   // MARK: - Initialization

@@ -18,13 +18,12 @@ public struct ComponentReloadBuilder: ReactionBuilder {
         deadline: DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
         execute: {
           self.controller?.refreshControl.endRefreshing()
-        }
+      }
       )
     }
   }
 
   public func buildReaction() -> Reaction<[Component]> {
-
     return Reaction(
       wait: {
         guard self.controller?.refreshMode != .disabled else { return }
@@ -35,23 +34,20 @@ public struct ComponentReloadBuilder: ReactionBuilder {
           self.controller?.spots.isEmpty == true {
           self.controller?.refreshControl.beginRefreshing()
         }
-      },
+    },
       consume: { (components: [Component]) in
-        guard self.controller?.refreshOnViewDidAppear == true else { return }
+        guard let controller = self.controller, controller.refreshOnViewDidAppear else { return }
 
-        self.controller?.reloadIfNeeded(components, compare: { $0 != $1 }) {
-          if let controller = self.controller as? Spots.Controller {
-            Spots.Controller.spotsDidReloadComponents?(controller)
-          }
-
-          self.controller?.cache()
+        controller.reloadIfNeeded(components, compare: controller.viewModelComparison) {
+          Spots.Controller.spotsDidReloadComponents?(controller)
+          controller.cache()
         }
         self.stopReloading()
-      },
+    },
       rescue: { error in
         self.controller?.errorHandler?(error)
         self.stopReloading()
-      }
+    }
     )
   }
 }
