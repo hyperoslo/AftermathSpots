@@ -40,7 +40,6 @@ public struct ComponentReloadBuilder: ReactionBuilder {
 
         controller.reloadIfNeeded(components, compare: controller.viewModelComparison) {
           Spots.Controller.spotsDidReloadComponents?(controller)
-          controller.cache()
         }
         self.stopReloading()
     },
