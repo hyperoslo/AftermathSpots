@@ -1,5 +1,4 @@
 import Spots
-import Brick
 import Aftermath
 
 // MARK: - Reload spots

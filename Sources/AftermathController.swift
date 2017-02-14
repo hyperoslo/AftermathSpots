@@ -1,6 +1,5 @@
 import UIKit
 import Spots
-import Brick
 import Aftermath
 
 public enum AfterMathRefreshMode {
@@ -143,7 +142,7 @@ open class AftermathController: Spots.Controller, CommandProducer {
 
 extension AftermathController: Spots.RefreshDelegate {
 
-  public func spotsDidReload(_ refreshControl: UIRefreshControl, completion: Completion) {
+  public func spotablesDidReload(_ spots: [Spotable], refreshControl: UIRefreshControl, completion: Completion) {
     executeInitial()
     completion?()
   }
