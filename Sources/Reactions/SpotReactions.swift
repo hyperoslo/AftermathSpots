@@ -20,11 +20,11 @@ public struct SpotReloadBuilder: ReactionBuilder {
         self.controller?.refreshControl.beginRefreshing()
       },
       consume: { (viewModels: [Item]) in
-        self.controller?.spot(self.index, Spotable.self)?.reloadIfNeeded(viewModels)
+        self.controller?.spot(at: self.index)?.reloadIfNeeded(viewModels)
         self.controller?.refreshControl.endRefreshing()
       },
       rescue: { error in
-        self.controller?.errorHandler?(error: error)
+        self.controller?.errorHandler?(error)
         self.controller?.refreshControl.endRefreshing()
       }
     )
@@ -34,9 +34,9 @@ public struct SpotReloadBuilder: ReactionBuilder {
 // MARK: - Insert view model
 
 public enum Insert {
-  case Append([Item])
-  case Prepend([Item])
-  case Index(Int, Item)
+  case append([Item])
+  case prepend([Item])
+  case index(Int, Item)
 }
 
 public struct SpotInsertBuilder: ReactionBuilder {
@@ -52,19 +52,19 @@ public struct SpotInsertBuilder: ReactionBuilder {
   public func buildReaction() -> Reaction<Insert> {
     return Reaction(
       consume: { (insert: Insert) in
-        let spot = self.controller?.spot(self.index, Spotable.self)
+        let spot = self.controller?.spot(at: self.index)
 
         switch insert {
-        case .Append(let viewModels):
+        case .append(let viewModels):
           spot?.append(viewModels)
-        case .Prepend(let viewModels):
+        case .prepend(let viewModels):
           spot?.prepend(viewModels)
-        case .Index(let index, let viewModel):
+        case .index(let index, let viewModel):
           spot?.insert(viewModel, index: index)
         }
       },
       rescue: { error in
-        self.controller?.errorHandler?(error: error)
+        self.controller?.errorHandler?(error)
       }
     )
   }
@@ -85,14 +85,14 @@ public struct SpotUpdateBuilder: ReactionBuilder {
   public func buildReaction() -> Reaction<Item> {
     return Reaction(
       consume: { (viewModel: Item) in
-        guard let items = self.controller?.spot(self.index, Spotable.self)?.items,
-          itemIndex = items.indexOf({ $0.identifier == viewModel.identifier })
+        guard let items = self.controller?.spot(at: self.index)?.items,
+          let itemIndex = items.index(where: { $0.identifier == viewModel.identifier })
           else { return }
 
-        self.controller?.spot(self.index, Spotable.self)?.update(viewModel, index: itemIndex)
+        self.controller?.spot(at: self.index)?.update(viewModel, index: itemIndex)
       },
       rescue: { error in
-        self.controller?.errorHandler?(error: error)
+        self.controller?.errorHandler?(error)
       }
     )
   }
@@ -113,14 +113,14 @@ public struct SpotDeleteBuilder: ReactionBuilder {
   public func buildReaction() -> Reaction<Item> {
     return Reaction(
       consume: { (viewModel: Item) in
-        guard let items = self.controller?.spot(self.index, Spotable.self)?.items,
-          itemIndex = items.indexOf({ $0.identifier == viewModel.identifier })
+        guard let items = self.controller?.spot(at: self.index)?.items,
+          let itemIndex = items.index(where: { $0.identifier == viewModel.identifier })
           else { return }
 
-        self.controller?.spot(self.index, Spotable.self)?.delete(itemIndex)
+        self.controller?.spot(at: self.index)?.delete(itemIndex)
       },
       rescue: { error in
-        self.controller?.errorHandler?(error: error)
+        self.controller?.errorHandler?(error)
       }
     )
   }
