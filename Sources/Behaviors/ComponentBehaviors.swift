@@ -3,7 +3,7 @@ import Spots
 
 // MARK: - Reload components
 
-public struct ComponentReloadBehavior<T: Command>: Behavior where T.Output == [Component] {
+public struct ComponentReloadBehavior<T: Command>: Behavior where T.Output == [ComponentModel] {
 
   public let commandType: T.Type
 

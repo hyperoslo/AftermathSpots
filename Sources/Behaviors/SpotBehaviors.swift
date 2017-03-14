@@ -1,7 +1,7 @@
 import Aftermath
 import Spots
 
-// MARK: - Reload spots
+// MARK: - Reload components
 
 public struct SpotReloadBehavior<T: Command>: Behavior where T.Output == [Item] {
 

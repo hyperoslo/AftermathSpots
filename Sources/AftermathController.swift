@@ -23,7 +23,7 @@ open class AftermathController: Spots.Controller, CommandProducer {
     didSet { toggle(features: enabledFeatures) }
   }
 
-  public var viewModelComparison = { (lhs: [Component], rhs: [Component]) in
+  public var viewModelComparison = { (lhs: [ComponentModel], rhs: [ComponentModel]) in
     lhs !== rhs
   }
 
@@ -31,20 +31,20 @@ open class AftermathController: Spots.Controller, CommandProducer {
 
   // MARK: - Initialization
 
-  public required init(cacheKey: String? = nil, spots: [Spotable] = [], initialCommand: AnyCommand? = nil, behaviors: [Behavior] = [], features: [SpotsFeature] = SpotsFeature.allValues) {
+  public required init(cacheKey: String? = nil, components: [CoreComponent] = [], initialCommand: AnyCommand? = nil, behaviors: [Behavior] = [], features: [SpotsFeature] = SpotsFeature.allValues) {
     var stateCache: StateCache? = nil
-    var cachedSpots: [Spotable] = spots
+    var cachedComponents: [CoreComponent] = components
 
     if let cacheKey = cacheKey {
       stateCache = StateCache(key: cacheKey)
-      cachedSpots = Parser.parse(stateCache!.load())
+      cachedComponents = Parser.parse(stateCache!.load())
     }
 
     self.initialCommand = initialCommand
     self.behaviors = behaviors
     super.init()
     self.stateCache = stateCache
-    self.spots = cachedSpots
+    self.components = cachedComponents
     self.enabledFeatures = features
 
     for behavior in behaviors {
@@ -52,15 +52,15 @@ open class AftermathController: Spots.Controller, CommandProducer {
     }
   }
 
-  public convenience init<T: Command>(cacheKey: String? = nil, componentCommand: T, behaviors: [Behavior] = []) where T.Output == [Component] {
+  public convenience init<T: Command>(cacheKey: String? = nil, componentCommand: T, behaviors: [Behavior] = []) where T.Output == [ComponentModel] {
     self.init(cacheKey: cacheKey, initialCommand: componentCommand, behaviors: behaviors)
     let componentReloadBehavior = ComponentReloadBehavior(commandType: T.self)
     componentReloadBehavior.extend(self)
     self.behaviors.append(componentReloadBehavior)
   }
 
-  public convenience init<T: Command>(cacheKey: String? = nil, spots: [Spotable], spotCommand: T, behaviors: [Behavior] = []) where T.Output == [Item] {
-    self.init(cacheKey: cacheKey, spots: spots, initialCommand: spotCommand, behaviors: behaviors)
+  public convenience init<T: Command>(cacheKey: String? = nil, components: [CoreComponent], componentCommand: T, behaviors: [Behavior] = []) where T.Output == [Item] {
+    self.init(cacheKey: cacheKey, components: components, initialCommand: componentCommand, behaviors: behaviors)
     let reloadBehavior = SpotReloadBehavior(index: 0, commandType: T.self)
     reloadBehavior.extend(self)
     self.behaviors.append(reloadBehavior)
@@ -70,8 +70,8 @@ open class AftermathController: Spots.Controller, CommandProducer {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public required init(spots: [Spotable]) {
-    fatalError("init(spots:) has not been implemented")
+  public required init(components: [CoreComponent]) {
+    fatalError("init(components:) has not been implemented")
   }
 
   deinit {
@@ -142,7 +142,7 @@ open class AftermathController: Spots.Controller, CommandProducer {
 
 extension AftermathController: Spots.RefreshDelegate {
 
-  public func spotablesDidReload(_ spots: [Spotable], refreshControl: UIRefreshControl, completion: Completion) {
+  public func componentsDidReload(_ components: [CoreComponent], refreshControl: UIRefreshControl, completion: Completion) {
     executeInitial()
     completion?()
   }

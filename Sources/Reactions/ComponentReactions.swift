@@ -23,7 +23,7 @@ public struct ComponentReloadBuilder: ReactionBuilder {
     }
   }
 
-  public func buildReaction() -> Reaction<[Component]> {
+  public func buildReaction() -> Reaction<[ComponentModel]> {
     return Reaction(
       wait: {
         guard self.controller?.refreshMode != .disabled else { return }
@@ -31,15 +31,15 @@ public struct ComponentReloadBuilder: ReactionBuilder {
         if self.controller?.refreshMode == .always {
           self.controller?.refreshControl.beginRefreshing()
         } else if self.controller?.refreshMode == .onlyWhenEmpty &&
-          self.controller?.spots.isEmpty == true {
+          self.controller?.components.isEmpty == true {
           self.controller?.refreshControl.beginRefreshing()
         }
     },
-      consume: { (components: [Component]) in
+      consume: { (components: [ComponentModel]) in
         guard let controller = self.controller, controller.refreshOnViewDidAppear else { return }
 
         controller.reloadIfNeeded(components, compare: controller.viewModelComparison) {
-          Spots.Controller.spotsDidReloadComponents?(controller)
+          Spots.Controller.componentsDidReloadComponentModels?(controller)
         }
         self.stopReloading()
     },
