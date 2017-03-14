@@ -1,6 +1,6 @@
 github "hyperoslo/Aftermath" "1.1.0"
 github "krzyzanowskim/CryptoSwift" "0.6.7"
-github "ReactiveX/RxSwift" "3.2.0"
+github "ReactiveX/RxSwift" "3.3.1"
 github "zenangst/Tailor" "2.0.2"
 github "hyperoslo/Cache" "2.2.1"
-github "hyperoslo/Spots" "933c916059e14749bafa60a217fe8ec9fd76c850"
+github "hyperoslo/Spots" "40ff876b6dbbf557b5bd3d7f217ff23fbd043346"
